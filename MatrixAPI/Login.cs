@@ -17,7 +17,10 @@ namespace MatrixAPI
             //string content = Get(loginUrl).Content;
             //var loginOptions = JObject.Parse(content);
 
-            return Post(loginUrl, UsernamePassword(name, password));
+            Response response = Post(loginUrl, UsernamePassword(name, password));
+            _userData = new UserData(response.Content);
+
+            return response;
         }
 
         private JObject UsernamePassword(string username, string password)
