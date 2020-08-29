@@ -28,7 +28,7 @@ namespace MatrixAPI
                 long timestamp = (long)token["origin_server_ts"];
                 DateTime time = timestamp.ToDateTime().ToLocalTime();
 
-                Message message = new Message(time, (string)token["sender"], (string)token["content"]["body"]);
+                Message message = new Message(time, (string)token["sender"], token["content"]);
                 messages.Add(message);
             }
 

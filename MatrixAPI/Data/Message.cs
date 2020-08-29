@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -8,18 +9,31 @@ namespace MatrixAPI.Data
     {
         public DateTime Date;
         public string Sender;
-        public string Content;
+        public MessageContent messageContent;
 
-        public Message(DateTime date, string sender, string content)
+        public Message(DateTime date, string sender, JToken content)
         {
             Date = date;
             Sender = sender;
-            Content = content;
+
+            if (content["membership"] == null)
+            {
+                messageContent.Body = (string)content["body"] ?? "";
+                messageContent.MessageType = (string)content["msg"] ?? "";
+            }
+            else
+            {
+                messageContent.Body = "";
+                messageContent.MessageType = (string)content["membership"];
+            }
         }
 
         public override string ToString()
         {
-            return $"[{Date:t}] {Sender}\n{Content}";
+            if (messageContent.MessageType == "join" || messageContent.MessageType == "leave")
+                return $"[{Date:t}] {Sender} {messageContent.MessageType}";
+
+            return $"[{Date:t}] {Sender}\n{messageContent.Body}";
         }
     }
 }
