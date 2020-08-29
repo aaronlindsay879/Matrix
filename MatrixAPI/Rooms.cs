@@ -25,9 +25,9 @@ namespace MatrixAPI
             return response;
         }
 
-        public Response GetRoomMessages(string roomId)
+        public Response GetRoomMessages(string roomId, string from, string dir)
         {
-            string roomAliasesUrl = $@"/_matrix/client/r0/rooms/{roomId.MatrixUrl()}/messages";
+            string roomAliasesUrl = $@"/_matrix/client/r0/rooms/{roomId.MatrixUrl()}/messages?from={from}&dir={dir}";
             Response response = Get(roomAliasesUrl, true);
 
             return response;
