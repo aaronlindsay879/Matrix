@@ -14,9 +14,9 @@ namespace MatrixClientCLI
             string username = Environment.GetEnvironmentVariable("Username");
             string password = Environment.GetEnvironmentVariable("Password");
 
-            using (Matrix api = new Matrix(@"https://matrix.org", username, password))
+            using (Matrix api = new Matrix(@"https://matrix.org", username, password, true))
             {
-                Console.WriteLine(api.ListJoinedRooms());
+                api.ListJoinedRooms();
             }
         }
     }
