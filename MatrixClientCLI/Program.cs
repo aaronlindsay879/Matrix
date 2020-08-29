@@ -12,8 +12,9 @@ namespace MatrixClientCLI
 
             Response response = api.Login(Environment.GetEnvironmentVariable("Username"), Environment.GetEnvironmentVariable("Password"));
 
-            Console.WriteLine(response);
-            Console.WriteLine(api.Logout());
+            Console.WriteLine($"Logging in\n{response}\n");
+            Console.WriteLine($"Listing joined rooms\n{api.ListJoinedRooms()}\n");
+            Console.WriteLine($"Logging out\n{api.Logout()}\n");
         }
     }
 }
