@@ -18,6 +18,8 @@ namespace MatrixClientCLI
             {
                 var rooms = api.ListJoinedRooms();
 
+                api.Sync();
+
                 JObject jObj = JObject.Parse(rooms.Content);
                 var roomId = jObj["joined_rooms"].First;
                 api.GetRoomMessages((string)roomId);

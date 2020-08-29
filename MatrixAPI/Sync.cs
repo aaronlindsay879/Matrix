@@ -7,9 +7,11 @@ namespace MatrixAPI
 {
     public partial class Matrix
     {
-        public Response Sync(string since, bool setOnline = false)
+        public Response Sync(string since = null, bool setOnline = false)
         {
-            string syncUrl = $@"/_matrix/client/r0/sync?since={since}&setOnline={(setOnline ? "online" : "offline")}";
+            string syncUrl = $@"/_matrix/client/r0/sync?setOnline={(setOnline ? "online" : "offline")}";
+            if (!string.IsNullOrEmpty(since)) syncUrl += $"&since={since}";
+
             Response response = Get(syncUrl, true);
 
             return response;
