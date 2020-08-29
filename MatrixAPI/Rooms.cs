@@ -11,24 +11,24 @@ namespace MatrixAPI
     {
         public Response ListJoinedRooms()
         {
-            string joinedRoomsUrl = $@"/_matrix/client/r0/joined_rooms?access_token={_userData.Token}";
-            Response response = Get(joinedRoomsUrl);
+            string joinedRoomsUrl = $@"/_matrix/client/r0/joined_rooms";
+            Response response = Get(joinedRoomsUrl, true);
 
             return response;
         }
 
         public Response GetRoomEvent(string roomId, string eventId)
         {
-            string roomAliasesUrl = $@"/_matrix/client/r0/rooms/{roomId}/event/{eventId}?access_token={_userData.Token}";
-            Response response = Get(roomAliasesUrl);
+            string roomAliasesUrl = $@"/_matrix/client/r0/rooms/{roomId}/event/{eventId}";
+            Response response = Get(roomAliasesUrl, true);
 
             return response;
         }
 
         public Response GetRoomMessages(string roomId)
         {
-            string roomAliasesUrl = $@"/_matrix/client/r0/rooms/{roomId.MatrixUrl()}/messages?access_token={_userData.Token}";
-            Response response = Get(roomAliasesUrl);
+            string roomAliasesUrl = $@"/_matrix/client/r0/rooms/{roomId.MatrixUrl()}/messages";
+            Response response = Get(roomAliasesUrl, true);
 
             return response;
         }

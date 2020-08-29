@@ -12,8 +12,8 @@ namespace MatrixAPI
     {
         public Response Logout()
         {
-            string logOutUrl = @$"/_matrix/client/r0/logout?access_token={_userData.Token}";
-            Response response = Post(logOutUrl, new JObject());
+            string logOutUrl = @$"/_matrix/client/r0/logout";
+            Response response = Post(logOutUrl, new JObject(), true);
 
             return response;
         }

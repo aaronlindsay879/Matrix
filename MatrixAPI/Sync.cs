@@ -9,8 +9,8 @@ namespace MatrixAPI
     {
         public Response Sync(string since, bool setOnline = false)
         {
-            string syncUrl = $@"/_matrix/client/r0/sync?access_token={_userData.Token}&since={since}&setOnline={(setOnline ? "online" : "offline")}";
-            Response response = Get(syncUrl);
+            string syncUrl = $@"/_matrix/client/r0/sync?since={since}&setOnline={(setOnline ? "online" : "offline")}";
+            Response response = Get(syncUrl, true);
 
             return response;
         }
