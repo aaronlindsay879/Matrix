@@ -6,33 +6,12 @@ using System.Linq;
 using System.Web;
 using System.Collections.Generic;
 using MatrixClientCLI.ExtensionMethods;
+using System.Threading.Tasks;
 
 namespace MatrixClientCLI
 {
     class Program
     {
-        private static List<string> GetMessagesFromSync(JObject syncObject, string roomId)
-        {
-            //If no new messages, return empty list
-            if (syncObject["rooms"]["join"].Count() == 0)
-                return new List<string>();
-
-            //Fetch list of events
-            var events = syncObject["rooms"]["join"][roomId]["timeline"]["events"];
-            List<string> messages = new List<string>();
-
-            //For every event, generate a message in the format of "[time] name \n message"
-            foreach (JToken token in events)
-            {
-                long timestamp = (long)token["origin_server_ts"];
-                DateTime time = timestamp.ToDateTime().ToLocalTime();
-
-                messages.Add($"[{time:t}] {token["sender"]}\n{token["content"]["body"]}");
-            }
-
-            return messages;
-        }
-
         static void Main(string[] args)
         {
             Console.CursorVisible = false;
@@ -53,13 +32,10 @@ namespace MatrixClientCLI
                 //Parse sync data, display messages and wait for new messages to be sent
                 while (true)
                 {
-                    var events = JObject.Parse(sync.Content);
-                    string nextBatch = (string)events["next_batch"];
+                    string nextBatch = (string)JObject.Parse(sync.Content)["next_batch"];
 
-                    foreach (string message in GetMessagesFromSync(events, roomId))
-                    {
+                    foreach (Message message in api.GetMessagesFromSync(sync, roomId))
                         Console.WriteLine(message + "\n");
-                    }
 
                     sync = api.Sync(false, nextBatch, 15000);
                 }

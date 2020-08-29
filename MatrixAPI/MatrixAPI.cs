@@ -30,7 +30,7 @@ namespace MatrixAPI
             Logout();
         }
 
-        private void Log(Response response = null)
+        private void Log(Response response)
         {
             if (_log)
             {
@@ -50,7 +50,7 @@ namespace MatrixAPI
                     
                 //Log the method, type (get or post) and https response
                 if (toWrite)
-                    Console.WriteLine($"method: {callingMethodName} \ntype: {netType} \n{response?.ToString()} \n");
+                    Console.WriteLine($"method: {callingMethodName} \ntype: {netType} \n{response.ToString()} \n");
             }
         }
     }

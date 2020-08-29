@@ -5,7 +5,7 @@ using System.Text;
 
 namespace MatrixAPI.Data
 {
-    public class UserData
+    public struct UserData
     {
         public string MatrixID { get; private set; }
         public string DeviceID { get; private set; }

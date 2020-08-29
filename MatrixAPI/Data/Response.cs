@@ -6,7 +6,7 @@ using System.Text;
 
 namespace MatrixAPI.Data
 {
-    public class Response
+    public struct Response
     {
         public HttpStatusCode StatusCode { get; private set; }
         public string Content { get; private set; }
