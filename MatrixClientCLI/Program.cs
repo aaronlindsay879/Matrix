@@ -22,7 +22,7 @@ namespace MatrixClientCLI
             foreach (JToken token in events)
             {
                 long timestamp = (long)token["origin_server_ts"];
-                DateTime time = timestamp.ToDateTime();
+                DateTime time = timestamp.ToDateTime().ToLocalTime();
 
                 messages.Add($"[{time:t}] {token["sender"]}\n{token["content"]["body"]}");
             }
