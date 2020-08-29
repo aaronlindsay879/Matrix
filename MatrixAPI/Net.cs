@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using MatrixAPI.Data;
+using Newtonsoft.Json.Linq;
 using RestSharp;
 using System;
 using System.Collections.Generic;
@@ -18,15 +19,13 @@ namespace MatrixAPI
             return (client, request);
         }
              
-        private (HttpStatusCode, string) Post(string url, JObject jObject)
+        private Response Post(string url, JObject jObject)
         {
             var (client, request) = GenerateRequest(url, Method.POST);
 
             request.AddParameter("application/json; charset=utf-8", jObject, ParameterType.RequestBody);
 
-            IRestResponse response = client.Execute(request);
-
-            return (response.StatusCode, response.Content);
+            return new Response(client.Execute(request));
         }
     }
 }

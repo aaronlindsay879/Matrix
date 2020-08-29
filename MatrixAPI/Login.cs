@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using MatrixAPI.Data;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Net;
@@ -8,7 +9,7 @@ namespace MatrixAPI
 {
     partial class Matrix
     {
-        public (HttpStatusCode, string) Login(string name, string password)
+        public Response Login(string name, string password)
         {
             dynamic jsonBody = new JObject();
 

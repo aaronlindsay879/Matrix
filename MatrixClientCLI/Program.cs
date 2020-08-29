@@ -1,4 +1,5 @@
 ﻿using MatrixAPI;
+using MatrixAPI.Data;
 using System;
 
 namespace MatrixClientCLI
@@ -9,9 +10,9 @@ namespace MatrixClientCLI
         {
             Matrix api = new Matrix(@"https://matrix.org");
 
-            var (status, response) = api.Login(Environment.GetEnvironmentVariable("Username"), Environment.GetEnvironmentVariable("Password"));
+            Response response = api.Login(Environment.GetEnvironmentVariable("Username"), Environment.GetEnvironmentVariable("Password"));
 
-            Console.WriteLine($"status: {status}\nresponse: {response}");
+            Console.WriteLine(response);
         }
     }
 }
