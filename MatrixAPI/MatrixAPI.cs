@@ -2,11 +2,11 @@
 
 namespace MatrixAPI
 {
-    partial class MatrixAPI
+    public partial class Matrix
     {
         private string _serverUrl;
 
-        public MatrixAPI(string serverUrl)
+        public Matrix(string serverUrl)
         {
             _serverUrl = serverUrl;
         }

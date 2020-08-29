@@ -8,7 +8,7 @@ using System.Text;
 
 namespace MatrixAPI
 {
-    public partial class MatrixAPI
+    public partial class Matrix
     {
         private (RestClient, RestRequest) GenerateRequest(string url, Method method)
         {
@@ -18,13 +18,15 @@ namespace MatrixAPI
             return (client, request);
         }
              
-        private HttpStatusCode Post(string url, JObject jObject)
+        private (HttpStatusCode, string) Post(string url, JObject jObject)
         {
             var (client, request) = GenerateRequest(url, Method.POST);
 
             request.AddParameter("application/json; charset=utf-8", jObject, ParameterType.RequestBody);
 
-             return client.Execute(request).StatusCode;
+            IRestResponse response = client.Execute(request);
+
+            return (response.StatusCode, response.Content);
         }
     }
 }

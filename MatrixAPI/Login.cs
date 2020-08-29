@@ -6,9 +6,9 @@ using System.Text;
 
 namespace MatrixAPI
 {
-    partial class MatrixAPI
+    partial class Matrix
     {
-        public HttpStatusCode Login(string name, string password)
+        public (HttpStatusCode, string) Login(string name, string password)
         {
             dynamic jsonBody = new JObject();
 
