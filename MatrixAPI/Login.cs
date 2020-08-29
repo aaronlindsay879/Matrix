@@ -10,6 +10,13 @@ namespace MatrixAPI
 {
     partial class Matrix
     {
+        public Response Logout()
+        {
+            string logOutUrl = @$"/_matrix/client/r0/logout?access_token={_userData.Token}";
+
+            return Post(logOutUrl, new JObject());
+        }
+
         public Response Login(string name, string password)
         {
             string loginUrl = @"/_matrix/client/r0/login";

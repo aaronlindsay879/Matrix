@@ -13,6 +13,7 @@ namespace MatrixClientCLI
             Response response = api.Login(Environment.GetEnvironmentVariable("Username"), Environment.GetEnvironmentVariable("Password"));
 
             Console.WriteLine(response);
+            Console.WriteLine(api.Logout());
         }
     }
 }
