@@ -8,6 +8,7 @@ namespace MatrixAPI.ExtensionMethods
     {
         public static string MatrixUrl(this string url)
         {
+            //Replace non-websafe chars in room IDs to prevent errors
             return url.Replace("!", "%21")
                       .Replace(":", "%3A");
         }
