@@ -34,9 +34,10 @@ namespace MatrixAPI
             if (_log)
             {
                 StackTrace st = new StackTrace();
-                string callingMethodName = st.GetFrame(1).GetMethod().Name;
+                string netType = st.GetFrame(1).GetMethod().Name;
+                string callingMethodName = st.GetFrame(2).GetMethod().Name;
 
-                Console.WriteLine($"method: {callingMethodName} \n{response?.ToString()} \n");
+                Console.WriteLine($"method: {callingMethodName} \ntype: {netType} \n{response?.ToString()} \n");
             }
         }
     }

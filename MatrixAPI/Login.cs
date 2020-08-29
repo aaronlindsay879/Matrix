@@ -15,7 +15,6 @@ namespace MatrixAPI
             string logOutUrl = @$"/_matrix/client/r0/logout?access_token={_userData.Token}";
             Response response = Post(logOutUrl, new JObject());
 
-            Log(response);
             return response;
         }
 
@@ -31,7 +30,6 @@ namespace MatrixAPI
                 Response response = Post(loginUrl, UsernamePassword(name, password));
                 _userData = new UserData(response.Content);
 
-                Log(response);
                 return response;
             }
             else

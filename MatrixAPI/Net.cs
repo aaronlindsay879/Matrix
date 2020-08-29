@@ -24,15 +24,20 @@ namespace MatrixAPI
             var (client, request) = GenerateRequest(url, Method.POST);
 
             request.AddParameter("application/json; charset=utf-8", jObject, ParameterType.RequestBody);
+            Response response = new Response(client.Execute(request));
 
-            return new Response(client.Execute(request));
+            Log(response);
+            return response;
         }
 
         private Response Get(string url)
         {
             var (client, request) = GenerateRequest(url, Method.GET);
 
-            return new Response(client.Execute(request));
+            Response response = new Response(client.Execute(request));
+
+            Log(response);
+            return response;
         }
     }
 }
