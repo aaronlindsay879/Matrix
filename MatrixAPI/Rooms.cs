@@ -1,4 +1,5 @@
 ﻿using MatrixAPI.Data;
+using MatrixAPI.ExtensionMethods;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -19,6 +20,14 @@ namespace MatrixAPI
         public Response GetRoomEvent(string roomId, string eventId)
         {
             string roomAliasesUrl = $@"/_matrix/client/r0/rooms/{roomId}/event/{eventId}?access_token={_userData.Token}";
+            Response response = Get(roomAliasesUrl);
+
+            return response;
+        }
+
+        public Response GetRoomMessages(string roomId)
+        {
+            string roomAliasesUrl = $@"/_matrix/client/r0/rooms/{roomId.MatrixUrl()}/messages?access_token={_userData.Token}";
             Response response = Get(roomAliasesUrl);
 
             return response;

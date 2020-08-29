@@ -16,7 +16,11 @@ namespace MatrixClientCLI
 
             using (Matrix api = new Matrix(@"https://matrix.org", username, password, true))
             {
-                api.ListJoinedRooms();
+                var rooms = api.ListJoinedRooms();
+
+                JObject jObj = JObject.Parse(rooms.Content);
+                var roomId = jObj["joined_rooms"].First;
+                api.GetRoomMessages((string)roomId);
             }
         }
     }
