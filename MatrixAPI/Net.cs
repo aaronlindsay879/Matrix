@@ -16,6 +16,7 @@ namespace MatrixAPI
             RestClient client = new RestClient(_serverUrl);
             RestRequest request = new RestRequest(url, method);
 
+            //If auth is required, add it to the header - is not added by default
             if (setAuthHeader)
                 request.AddHeader("Authorization", $"Bearer {_userData.Token}");
 

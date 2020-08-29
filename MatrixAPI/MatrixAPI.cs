@@ -26,6 +26,7 @@ namespace MatrixAPI
 
         public void Dispose()
         {
+            //Implented so that client will be logged out on dispose, so that it can safely be used within a using statement
             Logout();
         }
 
@@ -33,11 +34,13 @@ namespace MatrixAPI
         {
             if (_log)
             {
+                //Use the stack trace to find the method which called this (a get or post) and the method which called that (such as a sync)
                 StackTrace st = new StackTrace(); 
                 string netType = st.GetFrame(1).GetMethod().Name;
                 string callingMethodName = st.GetFrame(2).GetMethod().Name;
-                bool toWrite = true;
 
+                //If the log is very long, check before writing (due to change)
+                bool toWrite = true;
                 if (response.ToString().Length > 500)
                 {
                     Console.Write($"Do you want to log message with length {response.ToString().Length}: ");
@@ -45,6 +48,7 @@ namespace MatrixAPI
                     Console.Write("\n\n");
                 }
                     
+                //Log the method, type (get or post) and https response
                 if (toWrite)
                     Console.WriteLine($"method: {callingMethodName} \ntype: {netType} \n{response?.ToString()} \n");
             }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace MatrixAPI.ExtensionMethods
+namespace MatrixClientCLI.ExtensionMethods
 {
     public static class Long
     {

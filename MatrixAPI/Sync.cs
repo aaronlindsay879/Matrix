@@ -9,6 +9,7 @@ namespace MatrixAPI
     {
         public Response Sync(bool setOnline = false, string since = null, int? timeOut = null)
         {
+            //Generate url for sync depending on parameters passed in
             string syncUrl = $@"/_matrix/client/r0/sync?setOnline={(setOnline ? "online" : "offline")}";
             if (!string.IsNullOrEmpty(since)) syncUrl += $"&since={since}";
             if (timeOut.HasValue) syncUrl += $"&timeout={timeOut}";
