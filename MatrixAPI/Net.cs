@@ -27,5 +27,12 @@ namespace MatrixAPI
 
             return new Response(client.Execute(request));
         }
+
+        private Response Get(string url)
+        {
+            var (client, request) = GenerateRequest(url, Method.GET);
+
+            return new Response(client.Execute(request));
+        }
     }
 }

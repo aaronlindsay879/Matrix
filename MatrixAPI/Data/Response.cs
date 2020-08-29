@@ -17,6 +17,12 @@ namespace MatrixAPI.Data
             Content = restResponse.Content;
         }
 
+        public Response(HttpStatusCode statusCode, string content)
+        {
+            StatusCode = statusCode;
+            Content = content;
+        }
+
         public override string ToString()
         {
             return $"status: {StatusCode}\nresponse: {Content}";
