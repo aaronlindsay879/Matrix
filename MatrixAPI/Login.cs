@@ -2,6 +2,7 @@
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Text;
 
@@ -13,14 +14,20 @@ namespace MatrixAPI
         {
             string loginUrl = @"/_matrix/client/r0/login";
 
-            //Will add again once matrix has proper support for advertising login options
-            //string content = Get(loginUrl).Content;
-            //var loginOptions = JObject.Parse(content);
+            var loginOptions = JObject.Parse(Get(loginUrl).Content);
+            string[] availableOptions = loginOptions["flows"].Select(x => (string)x["type"]).ToArray();
 
-            Response response = Post(loginUrl, UsernamePassword(name, password));
-            _userData = new UserData(response.Content);
+            if (availableOptions.Contains("m.login.password"))
+            {
+                Response response = Post(loginUrl, UsernamePassword(name, password));
+                _userData = new UserData(response.Content);
 
-            return response;
+                return response;
+            }
+            else
+            {
+                throw new Exception("login method not supported");
+            }
         }
 
         private JObject UsernamePassword(string username, string password)
