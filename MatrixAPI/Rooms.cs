@@ -10,9 +10,16 @@ namespace MatrixAPI
     {
         public Response ListJoinedRooms()
         {
-            string joinedRoomsUrl = @$"/_matrix/client/r0/joined_rooms?access_token={_userData.Token}";
+            string joinedRoomsUrl = $@"/_matrix/client/r0/joined_rooms?access_token={_userData.Token}";
 
             return Get(joinedRoomsUrl);
+        }
+
+        public Response GetRoomEvent(string roomId, string eventId)
+        {
+            string roomAliasesUrl = $@"/_matrix/client/r0/rooms/{roomId}/event/{eventId}?access_token={_userData.Token}";
+
+            return Get(roomAliasesUrl);
         }
     }
 }
