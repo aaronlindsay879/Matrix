@@ -15,6 +15,7 @@ namespace MatrixClientCLI
         static void Main(string[] args)
         {
             Console.CursorVisible = false;
+            Console.Title = "Matrix client.";
 
             string username = Environment.GetEnvironmentVariable("Username");
             string password = Environment.GetEnvironmentVariable("Password");
@@ -28,6 +29,8 @@ namespace MatrixClientCLI
 
                 //Initial sync
                 var sync = api.Sync();
+
+                Console.Title += $" Connected to: {api.FindAlias(sync, roomId)}";
 
                 //Parse sync data, display messages and wait for new messages to be sent
                 while (true)
