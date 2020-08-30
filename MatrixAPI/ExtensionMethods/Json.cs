@@ -38,5 +38,13 @@ namespace MatrixAPI.ExtensionMethods
         {
             return FindGeneric<dynamic>(token, query);
         }
+
+        public static string IfNotNull(this JToken token, string query, string defaultValue = null)
+        {
+            if (token[query] == null)
+                return defaultValue;
+
+            return (string)token[query];
+        }
     }
 }
