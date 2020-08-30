@@ -11,6 +11,8 @@ namespace MatrixAPI.Data.Timeline
         public string Body;
         public string FormattedBody;
         public string Membership;
+        public string Url;
+        public string LocationUrl;
         public EventContentTypes MsgType;
 
         public EventContent(JToken token)
@@ -20,6 +22,8 @@ namespace MatrixAPI.Data.Timeline
             MsgType = (token["msgtype"] != null) ? ((string)token["msgtype"]).ToEnum<EventContentTypes>() : EventContentTypes.none;
             FormattedBody = (token["formatted_body"] != null) ? (string)token["formatted_body"] : null;
             Membership = (token["membership"] != null) ? (string)token["formatted_body"] : null;
+            Url = (token["url"] != null) ? (string)token["url"] : null;
+            LocationUrl = (token["geo_uri"] != null) ? (string)token["geo_uri"] : null;
         }
     }
 }

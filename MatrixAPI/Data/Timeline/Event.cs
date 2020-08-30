@@ -22,6 +22,29 @@ namespace MatrixAPI.Data.Timeline
             Content = new EventContent(obj["content"]);
         }
 
+        private string BodyString()
+        {
+            switch (Content.MsgType)
+            {
+                case EventContentTypes.m_text:
+                    return Content.Body;
+                case EventContentTypes.m_emote:
+                    return $"{Sender} {Content.Body}";
+                case EventContentTypes.m_notice:
+                    return $"Notice: {Content.Body}";
+                case EventContentTypes.m_image:
+                case EventContentTypes.m_file:
+                case EventContentTypes.m_audio:
+                case EventContentTypes.m_video:
+                    return $"Url: {Content.Url}\nDescription: {Content.Body}";
+                case EventContentTypes.m_location:
+                    return $"Body: {Content.Body}\nLocation: {Content.LocationUrl}";
+
+                default:
+                    return "";
+            }
+        }
+
         public override string ToString()
         {
             switch (EventType)
@@ -29,12 +52,13 @@ namespace MatrixAPI.Data.Timeline
                 case EventTypes.m_room_member:
                     return $"{Sender} has {(Content.Membership == "join" ? "joined" : "left")}\n";
                 case EventTypes.m_room_message:
-                    return $"[{Date:t}] {Sender}\n{Content.Body}\n";
+                    return $"[{Date:t}] {Sender}\n{BodyString()}\n";
                 case EventTypes.m_reaction:
                     return "";
-            }
 
-            return "";
+                default:
+                    return "";
+            }
         }
     }
 }
