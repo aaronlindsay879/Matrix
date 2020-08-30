@@ -4,7 +4,7 @@ using System.Diagnostics;
 
 namespace MatrixAPI
 {
-    public partial class Matrix : IDisposable
+    public partial class Matrix
     {
         private string _serverUrl;
         private UserData _userData;

@@ -4,8 +4,11 @@ using RestSharp;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Net;
+using System.Net.Http;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace MatrixAPI
 {
@@ -42,6 +45,16 @@ namespace MatrixAPI
 
             Log(response);
             return response;
+        }
+
+        private Task<Stream> GetStream(HttpClient client, string url, bool setAuthHeader = false)
+        {
+            client.DefaultRequestHeaders.Clear();
+
+            if (setAuthHeader)
+                client.DefaultRequestHeaders.Add("Authorization", $"Bearer {_userData.Token}");
+
+            return client.GetStreamAsync(_serverUrl + url);
         }
     }
 }

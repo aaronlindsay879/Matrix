@@ -1,20 +1,21 @@
 ﻿using MatrixAPI.Data;
 using MatrixAPI.ExtensionMethods;
 using MatrixClientCLI.ExtensionMethods;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 
 namespace MatrixAPI
 {
     public partial class Matrix
     {
-        public List<Message> GetMessagesFromSync(Response response, string roomId)
+        public List<Message> GetMessagesFromSync(JObject syncObject, string roomId)
         {
-            JObject syncObject = JObject.Parse(response.Content);
-
             //If no new messages, return empty list
             if (syncObject.Find<JToken>("rooms/join").Count() == 0)
                 return new List<Message>();
@@ -36,9 +37,9 @@ namespace MatrixAPI
             return messages;
         }
 
-        public List<Message> GetMessagesFromSync(string roomId)
+        public List<Message> GetMessagesFromSync(HttpClient client, string roomId)
         {
-            return GetMessagesFromSync(Sync(), roomId);
+            return GetMessagesFromSync(Sync(client), roomId);
         }
     }
 }
