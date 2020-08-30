@@ -39,12 +39,15 @@ namespace MatrixAPI.ExtensionMethods
             return FindGeneric<dynamic>(token, query);
         }
 
-        public static string IfNotNull(this JToken token, string query, string defaultValue = null)
+        public static T IfNotNull<T>(this JToken token, string query, dynamic defaultValue = null)
         {
             if (token[query] == null)
                 return defaultValue;
 
-            return (string)token[query];
+            if (typeof(T).IsEnum)
+                return ((string)token[query]).ToEnum<T>();
+
+            return token[query].ToObject<T>();
         }
     }
 }

@@ -14,16 +14,12 @@ namespace MatrixAPI.Data.Timeline
 
         public EventContent(JToken token)
         {
-            Body = token.IfNotNull("body");
-            FormattedBody = token.IfNotNull("formatted_body");
-            Membership = token.IfNotNull("membership");
-            Url = token.IfNotNull("url");
-            LocationUrl = token.IfNotNull("geo_uri");
-
-            if (token["msgtype"] != null)
-                MsgType = ((string)token["msgtype"]).ToEnum<EventContentTypes>();
-            else
-                MsgType = EventContentTypes.none;
+            Body = token.IfNotNull<string>("body");
+            FormattedBody = token.IfNotNull<string>("formatted_body");
+            Membership = token.IfNotNull<string>("membership");
+            Url = token.IfNotNull<string>("url");
+            LocationUrl = token.IfNotNull<string>("geo_uri");
+            MsgType = token.IfNotNull<EventContentTypes>("msgtype", EventContentTypes.none);
         }
     }
 }
