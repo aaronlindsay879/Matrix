@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace MatrixAPI.ExtensionMethods
+﻿namespace MatrixAPI.ExtensionMethods
 {
     static class StringExtensions
     {

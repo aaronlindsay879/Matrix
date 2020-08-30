@@ -1,12 +1,7 @@
-﻿using MatrixAPI.Data;
-using MatrixAPI.ExtensionMethods;
+﻿using MatrixAPI.ExtensionMethods;
 using Newtonsoft.Json.Linq;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
 
 namespace MatrixAPI
 {

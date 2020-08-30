@@ -35,7 +35,7 @@ namespace MatrixAPI
             if (_log)
             {
                 //Use the stack trace to find the method which called this (a get or post) and the method which called that (such as a sync)
-                StackTrace st = new StackTrace(); 
+                StackTrace st = new StackTrace();
                 string netType = st.GetFrame(1).GetMethod().Name;
                 string callingMethodName = st.GetFrame(2).GetMethod().Name;
 
@@ -47,7 +47,7 @@ namespace MatrixAPI
                     toWrite = Console.ReadKey().Key == ConsoleKey.Y;
                     Console.Write("\n\n");
                 }
-                    
+
                 //Log the method, type (get or post) and https response
                 if (toWrite)
                     Console.WriteLine($"method: {callingMethodName} \ntype: {netType} \n{response.ToString()} \n");

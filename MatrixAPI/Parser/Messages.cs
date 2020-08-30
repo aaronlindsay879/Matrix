@@ -1,15 +1,9 @@
-﻿using MatrixAPI.Data;
-using MatrixAPI.Data.Timeline;
+﻿using MatrixAPI.Data.Timeline;
 using MatrixAPI.ExtensionMethods;
-using MatrixClientCLI.ExtensionMethods;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Net.Http;
-using System.Text;
 
 namespace MatrixAPI
 {

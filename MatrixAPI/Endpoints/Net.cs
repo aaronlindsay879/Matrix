@@ -1,13 +1,8 @@
 ﻿using MatrixAPI.Data;
 using Newtonsoft.Json.Linq;
 using RestSharp;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
-using System.Net;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace MatrixAPI
@@ -25,7 +20,7 @@ namespace MatrixAPI
 
             return (client, request);
         }
-             
+
         private Response Post(string url, JObject jObject, bool setAuthHeader = false)
         {
             var (client, request) = GenerateRequest(url, Method.POST, setAuthHeader);

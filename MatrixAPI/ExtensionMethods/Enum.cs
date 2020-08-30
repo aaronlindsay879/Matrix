@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace MatrixAPI.ExtensionMethods
-{ 
+{
     public static class TypesExtensions
     {
         public static T ToEnum<T>(this string str)
