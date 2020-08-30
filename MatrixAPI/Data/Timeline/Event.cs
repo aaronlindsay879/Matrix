@@ -51,6 +51,8 @@ namespace MatrixAPI.Data.Timeline
                     return $"[{Date:t}] {Sender} {(Content.Membership == "join" ? "joined" : "left")}\n";
                 case EventTypes.m_room_message:
                     return $"[{Date:t}] {Sender}\n{BodyString()}\n";
+                case EventTypes.m_room_redaction:
+                    return $"[{Date:t}] {Sender}\nprevious message redacted\n";
                 case EventTypes.m_reaction:
                     return "";
 
