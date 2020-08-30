@@ -7,15 +7,18 @@ namespace MatrixAPI.ExtensionMethods
     {
         private static T FindGeneric<T>(object obj, string query)
         {
+            //Only support queries with 2 or more sections
             if (!query.Contains("/"))
                 throw new ArgumentException("not valid query");
 
             string[] parts = query.Split('/');
 
+            //Traverse the json object one query at a time
             dynamic currentValue = obj;
             foreach (string part in parts)
                 currentValue = currentValue[part];
 
+            //Return the final object
             return (T)currentValue;
         }
 
@@ -44,6 +47,7 @@ namespace MatrixAPI.ExtensionMethods
             if (token[query] == null)
                 return defaultValue;
 
+            //Special case for enum, since simple casting doesn't work
             if (typeof(T).IsEnum)
                 return ((string)token[query]).ToEnum<T>();
 

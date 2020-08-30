@@ -14,6 +14,7 @@ namespace MatrixAPI.Data.Timeline
 
         public EventContent(JToken token)
         {
+            //Fetch data from the body, if it exists
             Body = token.IfNotNull<string>("body");
             FormattedBody = token.IfNotNull<string>("formatted_body");
             Membership = token.IfNotNull<string>("membership");

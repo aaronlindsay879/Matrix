@@ -14,6 +14,7 @@ namespace MatrixAPI.Data.Timeline
 
         public Event(JObject obj)
         {
+            //Fetch data from a timeline event
             Date = ((long)obj["origin_server_ts"]).ToDateTime();
             Sender = (string)obj["sender"];
             EventType = ((string)obj["type"]).ToEnum<EventTypes>();
@@ -22,6 +23,7 @@ namespace MatrixAPI.Data.Timeline
 
         private string BodyString()
         {
+            //Return different values for the body text depending on event body type
             switch (Content.MsgType)
             {
                 case EventContentTypes.m_text:
@@ -45,6 +47,7 @@ namespace MatrixAPI.Data.Timeline
 
         public override string ToString()
         {
+            //Format the entire message differently depending upon the event type
             switch (EventType)
             {
                 case EventTypes.m_room_member:

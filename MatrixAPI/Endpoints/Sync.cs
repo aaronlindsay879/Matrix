@@ -16,6 +16,7 @@ namespace MatrixAPI
 
             JObject obj;
 
+            //Use a stream to go string -> json object in order to remove peak RAM usage
             using (Stream s = GetStream(client, syncUrl, true).Result)
             using (StreamReader sr = new StreamReader(s))
             using (JsonReader reader = new JsonTextReader(sr))
