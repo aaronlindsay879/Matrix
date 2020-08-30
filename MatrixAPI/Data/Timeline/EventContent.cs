@@ -11,6 +11,7 @@ namespace MatrixAPI.Data.Timeline
         public string Url;
         public string LocationUrl;
         public EventContentTypes MsgType;
+        public RelationshipEvent RelationshipEvent;
 
         /// <summary>
         /// An object containing information about the content of an event
@@ -25,6 +26,11 @@ namespace MatrixAPI.Data.Timeline
             Url = token.IfNotNull<string>("url");
             LocationUrl = token.IfNotNull<string>("geo_uri");
             MsgType = token.IfNotNull<EventContentTypes>("msgtype", EventContentTypes.none);
+
+            if (token["m.relates_to"] != null)
+                RelationshipEvent = new RelationshipEvent(token["m.relates_to"]);
+            else
+                RelationshipEvent = new RelationshipEvent(RelationshipTypes.none);
         }
     }
 }

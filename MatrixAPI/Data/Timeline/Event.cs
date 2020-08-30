@@ -11,6 +11,7 @@ namespace MatrixAPI.Data.Timeline
         public string Sender;
         public EventTypes EventType;
         public EventContent Content;
+        public string Id;
 
         /// <summary>
         /// An object containing data about an event within a room timeline (usually a message or a user join/leave)
@@ -23,6 +24,7 @@ namespace MatrixAPI.Data.Timeline
             Sender = (string)obj["sender"];
             EventType = ((string)obj["type"]).ToEnum<EventTypes>();
             Content = new EventContent(obj["content"]);
+            Id = (string)obj["event_id"];
         }
 
         /// <summary>
