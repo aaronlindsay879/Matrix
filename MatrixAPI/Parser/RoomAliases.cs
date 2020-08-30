@@ -1,4 +1,5 @@
 ﻿using MatrixAPI.Data;
+using MatrixAPI.ExtensionMethods;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -14,9 +15,9 @@ namespace MatrixAPI
         {
             JObject syncObject = JObject.Parse(response.Content);
 
-            var events = syncObject["rooms"]["join"][roomId]["state"]["events"];
+            var events = syncObject.Find<JToken>($"rooms/join/{roomId}/state/events");
             var nameEvent = events.First(x => (string)x["type"] == "m.room.canonical_alias");
-            string alias = (string)nameEvent["content"]["alias"];
+            string alias = nameEvent.Find<string>("content/alias");
 
             return alias;
         }

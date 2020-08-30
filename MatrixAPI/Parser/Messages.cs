@@ -1,4 +1,5 @@
 ﻿using MatrixAPI.Data;
+using MatrixAPI.ExtensionMethods;
 using MatrixClientCLI.ExtensionMethods;
 using Newtonsoft.Json.Linq;
 using System;
@@ -15,11 +16,11 @@ namespace MatrixAPI
             JObject syncObject = JObject.Parse(response.Content);
 
             //If no new messages, return empty list
-            if (syncObject["rooms"]["join"].Count() == 0)
+            if (syncObject.Find<JToken>("rooms/join").Count() == 0)
                 return new List<Message>();
 
             //Fetch list of events
-            var events = syncObject["rooms"]["join"][roomId]["timeline"]["events"];
+            var events = syncObject.Find<JToken>($"rooms/join/{roomId}/timeline/events");
             List<Message> messages = new List<Message>();
 
             //For every event, generate a message in the format of "[time] name \n message"

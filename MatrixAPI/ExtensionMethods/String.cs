@@ -4,7 +4,7 @@ using System.Text;
 
 namespace MatrixAPI.ExtensionMethods
 {
-    static class String
+    static class StringExtensions
     {
         public static string MatrixUrl(this string url)
         {

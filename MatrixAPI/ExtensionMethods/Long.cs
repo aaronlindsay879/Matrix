@@ -4,7 +4,7 @@ using System.Text;
 
 namespace MatrixClientCLI.ExtensionMethods
 {
-    public static class Long
+    public static class LongExtensions
     {
         public static DateTime ToDateTime(this long timestamp)
         {
