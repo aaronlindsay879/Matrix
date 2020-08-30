@@ -45,18 +45,22 @@ HttpClient client = new HttpClient();
 //Fetch sync data
 var sync = api.Sync(client);
 
-while (true) {
-    //This marks the last data found in the sync, and will be the starting point for the next sync
-    string nextBatch = (string)sync["next_batch"];
+//Wrap in a try/finally so the client will log out even on crash
+try {
+    while (true) {
+        //This marks the last data found in the sync, and will be the starting point for the next sync
+        string nextBatch = (string)sync["next_batch"];
 
-    //Write each message from the sync to console
-    foreach (Event timelineEvent in api.GetMessagesFromSync(sync, roomId))
-        Console.WriteLine(timelineEvent);
+        //Write each message from the sync to console
+        foreach (Event timelineEvent in api.GetMessagesFromSync(sync, roomId))
+            Console.WriteLine(timelineEvent);
 
-    //Perform a new sync starting from the last data found, with a timeout of 15 seconds
-    //This will keep the request open for 15 seconds, but if a new messages is sent before then it will return early
-    sync = api.Sync(client, false, nextBatch, 15000);
+        //Perform a new sync starting from the last data found, with a timeout of 15 seconds
+        //This will keep the request open for 15 seconds, but if a new messages is sent before then it will return early
+        sync = api.Sync(client, false, nextBatch, 15000);
+    }
 }
-
-api.Logout();
+finally {
+    api.Logout();
+}
 ```
