@@ -23,6 +23,17 @@ Rooms handles various interactions with rooms.
 Sync handles syncing data with matrix, which keeps everything up to date.
 * Sync(HttpClient, bool, string, int?) - Performs a sync with the given HttpClient. Will report as online if bool is true, uses the given string as a starting index for the sync, and uses the given int as a time out
 
+## Parser
+#### Messages
+Messages handles finding the messages within a sync object.
+* GetMessagesFromSync(JObject, string) - Given a JObject produced by a sync, returns a list of messages in the given room id
+* GetMessagesFromSync(HttpClient, string) - Given a HttpClient and a roomId, perform a sync and return a list of messages
+
+#### RoomAliases
+RoomAliases handles finding the names to use for a room.
+* FindAlias(JObject, string) - Given a JObject produced by a sync, returns the room alias for a given room id
+* FindAlias(HttpClient, string) - Given a HttpClient and a roomId, find the name for that room
+
 # Example usage
 #### Creating an api instance and performing a manual sync
 ```csharp
