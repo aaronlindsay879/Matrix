@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using MatrixClientCLI.ExtensionMethods;
 using System.Threading.Tasks;
 using System.Net.Http;
+using MatrixAPI.Data.Timeline;
 
 namespace MatrixClientCLI
 {
@@ -41,8 +42,8 @@ namespace MatrixClientCLI
                 {
                     string nextBatch = (string)sync["next_batch"];
 
-                    foreach (Message message in api.GetMessagesFromSync(sync, roomId))
-                        Console.WriteLine(message + "\n");
+                    foreach (Event timelineEvent in api.GetMessagesFromSync(sync, roomId))
+                        Console.WriteLine(timelineEvent);
 
                     sync = api.Sync(client, false, nextBatch, 15000);
 

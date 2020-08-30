@@ -1,4 +1,5 @@
 ﻿using MatrixAPI.Data;
+using MatrixAPI.Data.Timeline;
 using MatrixAPI.ExtensionMethods;
 using MatrixClientCLI.ExtensionMethods;
 using Newtonsoft.Json;
@@ -14,30 +15,24 @@ namespace MatrixAPI
 {
     public partial class Matrix
     {
-        public List<Message> GetMessagesFromSync(JObject syncObject, string roomId)
+        public List<Event> GetMessagesFromSync(JObject syncObject, string roomId)
         {
             //If no new messages, return empty list
             if (syncObject.Find<JToken>("rooms/join").Count() == 0)
-                return new List<Message>();
+                return new List<Event>();
 
             //Fetch list of events
             var events = syncObject.Find<JToken>($"rooms/join/{roomId}/timeline/events");
-            List<Message> messages = new List<Message>();
+            List<Event> eventList = new List<Event>();
 
             //For every event, generate a message in the format of "[time] name \n message"
-            foreach (JToken token in events)
-            {
-                long timestamp = (long)token["origin_server_ts"];
-                DateTime time = timestamp.ToDateTime().ToLocalTime();
+            foreach (JObject token in events)
+                eventList.Add(new Event(token));
 
-                Message message = new Message(time, (string)token["sender"], token["content"]);
-                messages.Add(message);
-            }
-
-            return messages;
+            return eventList;
         }
 
-        public List<Message> GetMessagesFromSync(HttpClient client, string roomId)
+        public List<Event> GetMessagesFromSync(HttpClient client, string roomId)
         {
             return GetMessagesFromSync(Sync(client), roomId);
         }
