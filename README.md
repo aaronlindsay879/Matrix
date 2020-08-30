@@ -46,8 +46,10 @@ HttpClient client = new HttpClient();
 var sync = api.Sync(client);
 
 //Wrap in a try/finally so the client will log out even on crash
-try {
-    while (true) {
+try 
+{
+    while (true) 
+    {
         //This marks the last data found in the sync, and will be the starting point for the next sync
         string nextBatch = (string)sync["next_batch"];
 
@@ -60,7 +62,8 @@ try {
         sync = api.Sync(client, false, nextBatch, 15000);
     }
 }
-finally {
+finally 
+{
     api.Logout();
 }
 ```
