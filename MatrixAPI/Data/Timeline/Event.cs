@@ -50,7 +50,7 @@ namespace MatrixAPI.Data.Timeline
             switch (EventType)
             {
                 case EventTypes.m_room_member:
-                    return $"{Sender} has {(Content.Membership == "join" ? "joined" : "left")}\n";
+                    return $"[{Date:t}] {Sender} {(Content.Membership == "join" ? "joined" : "left")}\n";
                 case EventTypes.m_room_message:
                     return $"[{Date:t}] {Sender}\n{BodyString()}\n";
                 case EventTypes.m_reaction:
