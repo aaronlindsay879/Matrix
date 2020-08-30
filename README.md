@@ -22,3 +22,41 @@ Rooms handles various interactions with rooms.
 #### Sync
 Sync handles syncing data with matrix, which keeps everything up to date.
 * Sync(HttpClient, bool, string, int?) - Performs a sync with the given HttpClient. Will report as online if bool is true, uses the given string as a starting index for the sync, and uses the given int as a time out
+
+# Example usage
+#### Creating an api instance and performing a manual sync
+```csharp
+//Create api and httpclient instances
+Matrix api = new Matrix(@"https://matrix.org", "example username", "example password");
+HttpClient client = new HttpClient();
+
+//Fetch sync data
+var sync = api.Sync(client);
+
+api.Logout();
+```
+
+#### Writing all new messages to console
+```csharp
+//Create api and httpclient instances
+Matrix api = new Matrix(@"https://matrix.org", "example username", "example password");
+HttpClient client = new HttpClient();
+
+//Fetch sync data
+var sync = api.Sync(client);
+
+while (true) {
+    //This marks the last data found in the sync, and will be the starting point for the next sync
+    string nextBatch = (string)sync["next_batch"];
+
+    //Write each message from the sync to console
+    foreach (Event timelineEvent in api.GetMessagesFromSync(sync, roomId))
+        Console.WriteLine(timelineEvent);
+
+    //Perform a new sync starting from the last data found, with a timeout of 15 seconds
+    //This will keep the request open for 15 seconds, but if a new messages is sent before then it will return early
+    sync = api.Sync(client, false, nextBatch, 15000);
+}
+
+api.Logout();
+```
