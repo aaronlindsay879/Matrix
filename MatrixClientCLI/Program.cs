@@ -3,6 +3,7 @@ using MatrixAPI.Data.Timeline;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace MatrixClientCLI
 {
@@ -39,7 +40,8 @@ namespace MatrixClientCLI
                     foreach (Event timelineEvent in api.GetMessagesFromSync(sync, roomId))
                         Console.WriteLine(timelineEvent);
 
-
+                    //Perform a GC -- for some reason this isn't done and leads to memory usage up to 6x more than it should be
+                    //The slight impact on CPU performance (which is almost zero) is worth it to reduce RAM usage by such a large factor
                     GC.Collect();
                     sync = api.Sync(client, false, nextBatch, 15000);
                 }
