@@ -8,16 +8,14 @@ namespace MatrixAPI.Data
         public HttpStatusCode StatusCode { get; private set; }
         public string Content { get; private set; }
 
+        /// <summary>
+        /// An object containing information about a HTTP(S) response
+        /// </summary>
+        /// <param name="restResponse">Response object to parse</param>
         public Response(IRestResponse restResponse)
         {
             StatusCode = restResponse.StatusCode;
             Content = restResponse.Content;
-        }
-
-        public Response(HttpStatusCode statusCode, string content)
-        {
-            StatusCode = statusCode;
-            Content = content;
         }
 
         public override string ToString()

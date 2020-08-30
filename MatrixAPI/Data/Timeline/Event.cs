@@ -12,6 +12,10 @@ namespace MatrixAPI.Data.Timeline
         public EventTypes EventType;
         public EventContent Content;
 
+        /// <summary>
+        /// An object containing data about an event within a room timeline (usually a message or a user join/leave)
+        /// </summary>
+        /// <param name="obj">Event object to parse</param>
         public Event(JObject obj)
         {
             //Fetch data from a timeline event
@@ -21,9 +25,12 @@ namespace MatrixAPI.Data.Timeline
             Content = new EventContent(obj["content"]);
         }
 
+        /// <summary>
+        /// A method to construct a string for the body of the message using data within the event
+        /// </summary>
+        /// <returns>A body string</returns>
         private string BodyString()
         {
-            //Return different values for the body text depending on event body type
             switch (Content.MsgType)
             {
                 case EventContentTypes.m_text:

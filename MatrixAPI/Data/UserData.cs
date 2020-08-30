@@ -9,6 +9,10 @@ namespace MatrixAPI.Data
         public string Token { get; private set; }
         public string HomeServer { get; private set; }
 
+        /// <summary>
+        /// An object containing data about a user
+        /// </summary>
+        /// <param name="content">A string containing JSON data to parse</param>
         public UserData(string content)
         {
             JObject obj = JObject.Parse(content);

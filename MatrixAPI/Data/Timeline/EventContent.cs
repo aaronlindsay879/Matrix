@@ -12,9 +12,13 @@ namespace MatrixAPI.Data.Timeline
         public string LocationUrl;
         public EventContentTypes MsgType;
 
+        /// <summary>
+        /// An object containing information about the content of an event
+        /// </summary>
+        /// <param name="token">Content token to parse</param>
         public EventContent(JToken token)
         {
-            //Fetch data from the body, if it exists
+            //Fetch data from the token, if it exists
             Body = token.IfNotNull<string>("body");
             FormattedBody = token.IfNotNull<string>("formatted_body");
             Membership = token.IfNotNull<string>("membership");
