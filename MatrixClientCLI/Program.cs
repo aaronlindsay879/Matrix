@@ -45,9 +45,9 @@ namespace MatrixClientCLI
                     foreach (Event timelineEvent in api.GetMessagesFromSync(sync, roomId))
                         Console.WriteLine(timelineEvent);
 
-                    sync = api.Sync(client, false, nextBatch, 15000);
 
                     GC.Collect();
+                    sync = api.Sync(client, false, nextBatch, 15000);
                 }
             }
             finally
