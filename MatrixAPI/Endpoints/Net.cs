@@ -32,6 +32,17 @@ namespace MatrixAPI
             return response;
         }
 
+        private Response Put(string url, JObject jObject, bool setAuthHeader = false)
+        {
+            var (client, request) = GenerateRequest(url, Method.PUT, setAuthHeader);
+
+            request.AddParameter("application/json; charset=utf-8", jObject, ParameterType.RequestBody);
+            Response response = new Response(client.Execute(request));
+
+            Log(response);
+            return response;
+        }
+
         private Response Get(string url, bool setAuthHeader = false)
         {
             var (client, request) = GenerateRequest(url, Method.GET, setAuthHeader);
