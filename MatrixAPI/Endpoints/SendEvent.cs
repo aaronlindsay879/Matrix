@@ -12,7 +12,7 @@ namespace MatrixAPI
     {
         public Response SendEvent(string roomId, EventTypes eventType, JObject jObj)
         {
-            string sendEventUrl = @$"/_matrix/client/r0/rooms/{roomId}/send/{eventType}";
+            string sendEventUrl = @$"/_matrix/client/r0/rooms/{roomId.MatrixUrl()}/send/{eventType.ToString<EventTypes>()}/{_userData.Token.GetHashCode()}";
 
             return Put(sendEventUrl, jObj, true);
         }

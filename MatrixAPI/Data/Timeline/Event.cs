@@ -60,13 +60,11 @@ namespace MatrixAPI.Data.Timeline
             switch (EventType)
             {
                 case EventTypes.m_room_member:
-                    return $"[{Date:t}] {Sender} {(Content.Membership == "join" ? "joined" : "left")}\n";
+                    return $"[{Date:t}] {Sender} {(Content.Membership == "join" ? "joined" : "left")}\n\n";
                 case EventTypes.m_room_message:
-                    return $"[{Date:t}] {Sender}\n{BodyString()}\n";
+                    return $"[{Date:t}] {Sender}\n{BodyString()}\n\n";
                 case EventTypes.m_room_redaction:
-                    return $"[{Date:t}] {Sender}\nprevious message redacted\n";
-                case EventTypes.m_reaction:
-                    return "";
+                    return $"[{Date:t}] {Sender}\nprevious message redacted\n\n";
 
                 default:
                     return "";
