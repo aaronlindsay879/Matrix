@@ -7,7 +7,7 @@ namespace MatrixAPI.Olm
 {
     public partial class Olm
     {
-        public static string GetBase64Key(IntPtr account)
+        public static JObject GetIdentityKeys(IntPtr account)
         {
             //Find the length of keys in order to create buffer of correct size
             uint keyLength = GetAccountIdentityKeysLength(account);
@@ -16,7 +16,8 @@ namespace MatrixAPI.Olm
             //Write the identity keys to the buffer
             WriteAccountIdentityKeys(account, keys, keyLength * 8);
 
-            return Convert.ToBase64String(keys);
+            string identityKeys = Encoding.UTF8.GetString(keys);
+            return JObject.Parse(identityKeys);
         }
 
         public static JObject GetOneTimeKeys(IntPtr account)
@@ -37,7 +38,7 @@ namespace MatrixAPI.Olm
             byte[] randomBytes = new byte[randomLength];
             random.NextBytes(randomBytes);
 
-            Olm.GenerateAccountOneTimeKeys(account, count, randomBytes, randomLength * 8);
+            GenerateAccountOneTimeKeys(account, count, randomBytes, randomLength * 8);
         }
     }
 }
