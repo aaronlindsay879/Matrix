@@ -1,8 +1,10 @@
 ﻿using MatrixAPI;
 using MatrixAPI.Data.Timeline;
+using MatrixAPI.Olm;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Net.Http;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 
 namespace MatrixClientCLI
@@ -30,7 +32,7 @@ namespace MatrixClientCLI
                 //Initial sync
                 var sync = api.Sync(client);
 
-                Console.Title += $" Connected to: {api.FindAlias(sync, roomId)}";
+                Console.Title += $" Connected to: {api.FindDisplayName(sync, roomId)}";
 
                 //Parse sync data, display messages and wait for new messages to be sent
                 while (true)
