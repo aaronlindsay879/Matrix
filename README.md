@@ -37,7 +37,9 @@ RoomAliases handles finding the names to use for a room.
 ## Olm
 #### Keys
 Keys handles parsing and creating keys for an olm account.
-* GetBase64Key(IntPtr) - Find the base64 key for an account at the given memory location
+* GetIdentityKeys(IntPtr) - Find the identity keys for an account at the given memory location
+* GetOneTimeKeys(IntPtr) - Find the one time keys for an account at the given memory location
+* GenerateOneTimeKeys(IntPtr, uint, Random, uint) - Using the given account, generate the given number of one time keys using the given Random class and length of random data
 
 #### Account
 Account handles creating and managing olm accounts.
@@ -95,7 +97,7 @@ Random random = new Random();
 IntPtr olmAccount = Olm.NewAccount(random, 8);
 
 //Get the keys
-Console.WriteLine(Olm.GetBase64Key(olmAccount));
+Console.WriteLine(Olm.GetIdentityKeys(olmAccount));
 
 //It is important to manually free the memory, as the memory is manually allocated for the account
 Marshal.FreeHGlobal(olmAccount);
