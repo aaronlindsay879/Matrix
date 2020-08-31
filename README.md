@@ -34,6 +34,15 @@ RoomAliases handles finding the names to use for a room.
 * FindAlias(JObject, string) - Given a JObject produced by a sync, returns the room alias for a given room id
 * FindAlias(HttpClient, string) - Given a HttpClient and a roomId, find the name for that room
 
+## Olm
+#### Keys
+Keys handles parsing and creating keys for an olm account.
+* GetBase64Key(IntPtr) - Find the base64 key for an account at the given memory location
+
+#### Account
+Account handles creating and managing olm accounts.
+* NewAccount(Random, uint) - Creates an account with the given Random class and length of random data, and returns the location of the account in memory
+
 # Example usage
 #### Creating an api instance and performing a manual sync
 ```csharp
@@ -77,4 +86,17 @@ finally
 {
     api.Logout();
 }
+```
+
+#### Create an olm account and print the base64 key
+```csharp
+//Create a new random and olm account
+Random random = new Random();
+IntPtr olmAccount = Olm.NewAccount(random, 8);
+
+//Get the keys
+Console.WriteLine(Olm.GetBase64Key(olmAccount));
+
+//It is important to manually free the memory, as the memory is manually allocated for the account
+Marshal.FreeHGlobal(olmAccount);
 ```
