@@ -16,7 +16,16 @@ namespace MatrixAPI.ExtensionMethods
             //Traverse the json object one query at a time
             dynamic currentValue = obj;
             foreach (string part in parts)
-                currentValue = currentValue[part];
+            {
+                try
+                {
+                    currentValue = currentValue[part];
+                }
+                catch
+                {
+                    return default;
+                }
+            }
 
             //Return the final object
             return (T)currentValue;
